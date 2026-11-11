@@ -49,7 +49,7 @@ class SquadController extends Controller
 
         Player::query()->create($data);
 
-        return back()->with('success', 'Гравця додано до складу.');
+        return back()->with('success', 'Player added to the squad.');
     }
 
     public function update(SaveSquadPlayerRequest $request, Player $player): RedirectResponse
@@ -66,7 +66,7 @@ class SquadController extends Controller
 
         $player->update($data);
 
-        return back()->with('success', 'Склад оновлено.');
+        return back()->with('success', 'Squad updated.');
     }
 
     public function destroy(Player $player): RedirectResponse
@@ -74,6 +74,6 @@ class SquadController extends Controller
         $this->authorize('delete', $player);
         $player->delete();
 
-        return back()->with('success', 'Гравця виключено зі складу.');
+        return back()->with('success', 'Player removed from the squad.');
     }
 }

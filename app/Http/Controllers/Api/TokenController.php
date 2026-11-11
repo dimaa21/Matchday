@@ -23,7 +23,7 @@ class TokenController extends Controller
 
         if ($user === null || ! Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
-                'email' => 'Невірний email або пароль.',
+                'email' => 'The email or password is incorrect.',
             ]);
         }
 
@@ -44,6 +44,6 @@ class TokenController extends Controller
     {
         $request->user()->currentAccessToken()?->delete();
 
-        return response()->json(['message' => 'Токен відкликано.']);
+        return response()->json(['message' => 'Token revoked.']);
     }
 }

@@ -56,7 +56,7 @@ class TournamentController extends Controller
         ]);
         $this->syncTeams($tournament, $data['teams'] ?? []);
 
-        return redirect()->route('admin.tournaments.index')->with('success', 'Турнір створено.');
+        return redirect()->route('admin.tournaments.index')->with('success', 'Tournament created.');
     }
 
     public function edit(Tournament $tournament): Response
@@ -90,7 +90,7 @@ class TournamentController extends Controller
         $this->syncTeams($tournament, $data['teams'] ?? []);
         $standings->invalidate($tournament);
 
-        return redirect()->route('admin.tournaments.index')->with('success', 'Турнір оновлено.');
+        return redirect()->route('admin.tournaments.index')->with('success', 'Tournament updated.');
     }
 
     public function destroy(Tournament $tournament): RedirectResponse
@@ -98,7 +98,7 @@ class TournamentController extends Controller
         $this->authorize('delete', $tournament);
         $tournament->delete();
 
-        return redirect()->route('admin.tournaments.index')->with('success', 'Турнір видалено.');
+        return redirect()->route('admin.tournaments.index')->with('success', 'Tournament deleted.');
     }
 
     public function fixtures(Tournament $tournament, FixtureScheduler $scheduler): RedirectResponse
@@ -106,7 +106,7 @@ class TournamentController extends Controller
         $this->authorize('generateFixtures', $tournament);
         $count = $scheduler->generate($tournament);
 
-        return back()->with('success', "Календар створено: {$count} матчів.");
+        return back()->with('success', "Calendar created: {$count} matches.");
     }
 
     public function playoff(Tournament $tournament, FixtureScheduler $scheduler): RedirectResponse
@@ -114,7 +114,7 @@ class TournamentController extends Controller
         $this->authorize('generateFixtures', $tournament);
         $count = $scheduler->generatePlayoff($tournament);
 
-        return back()->with('success', "Плей-оф створено: {$count} матчів.");
+        return back()->with('success', "Playoff created: {$count} matches.");
     }
 
     /**

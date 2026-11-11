@@ -10,13 +10,13 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
 it('returns standings, a round of fixtures, a match and the scorers', function () {
-    $tournament = Tournament::factory()->create(['name' => 'Matchday Ліга', 'slug' => 'matchday-liga']);
-    $home = Team::factory()->create(['name' => 'Буревій']);
-    $away = Team::factory()->create(['name' => 'Хвиля']);
+    $tournament = Tournament::factory()->create(['name' => 'Matchday League', 'slug' => 'matchday-liga']);
+    $home = Team::factory()->create(['name' => 'Gale']);
+    $away = Team::factory()->create(['name' => 'Wave']);
     $tournament->teams()->attach([$home->id, $away->id]);
     $scorer = Player::factory()->create([
         'team_id' => $home->id,
-        'name' => 'Олег Коваль',
+        'name' => 'Owen Cole',
         'squad_number' => 9,
         'position' => PlayerPosition::Forward,
     ]);
@@ -25,7 +25,7 @@ it('returns standings, a round of fixtures, a match and the scorers', function (
         'round' => 3,
         'home_team_id' => $home->id,
         'away_team_id' => $away->id,
-        'venue' => 'Київ Арена',
+        'venue' => 'Kyiv Arena',
     ]);
     $game->events()->create([
         'player_id' => $scorer->id,
@@ -35,12 +35,12 @@ it('returns standings, a round of fixtures, a match and the scorers', function (
 
     $this->getJson('/api/tournaments/matchday-liga/standings')
         ->assertOk()
-        ->assertJsonPath('tables.0.rows.0.team_name', 'Буревій')
+        ->assertJsonPath('tables.0.rows.0.team_name', 'Gale')
         ->assertJsonPath('tables.0.rows.0.points', 3);
 
     $this->getJson('/api/tournaments/matchday-liga/fixtures?round=3')
         ->assertOk()
-        ->assertJsonPath('fixtures.0.venue', 'Київ Арена')
+        ->assertJsonPath('fixtures.0.venue', 'Kyiv Arena')
         ->assertJsonPath('fixtures.0.home_score', 2);
 
     $this->getJson('/api/tournaments/matchday-liga/fixtures?round=9')
@@ -49,12 +49,12 @@ it('returns standings, a round of fixtures, a match and the scorers', function (
 
     $this->getJson('/api/matches/'.$game->id)
         ->assertOk()
-        ->assertJsonPath('events.0.player', 'Олег Коваль')
+        ->assertJsonPath('events.0.player', 'Owen Cole')
         ->assertJsonPath('home_score', 2);
 
     $this->getJson('/api/tournaments/matchday-liga/top-scorers')
         ->assertOk()
-        ->assertJsonPath('scorers.0.player_name', 'Олег Коваль')
+        ->assertJsonPath('scorers.0.player_name', 'Owen Cole')
         ->assertJsonPath('scorers.0.goals', 1);
 });
 

@@ -51,7 +51,7 @@ class PlayerController extends Controller
 
         Player::query()->create($data);
 
-        return redirect()->route('admin.players.index')->with('success', 'Гравця додано.');
+        return redirect()->route('admin.players.index')->with('success', 'Player added.');
     }
 
     public function edit(Player $player): Response
@@ -85,7 +85,7 @@ class PlayerController extends Controller
 
         $player->update($data);
 
-        return redirect()->route('admin.players.index')->with('success', 'Гравця оновлено.');
+        return redirect()->route('admin.players.index')->with('success', 'Player updated.');
     }
 
     public function destroy(Player $player): RedirectResponse
@@ -93,6 +93,6 @@ class PlayerController extends Controller
         $this->authorize('delete', $player);
         $player->delete();
 
-        return redirect()->route('admin.players.index')->with('success', 'Гравця видалено.');
+        return redirect()->route('admin.players.index')->with('success', 'Player deleted.');
     }
 }

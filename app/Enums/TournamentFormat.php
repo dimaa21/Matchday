@@ -11,9 +11,9 @@ enum TournamentFormat: string
     public function label(): string
     {
         return match ($this) {
-            self::League => 'Ліга',
-            self::Cup => 'Кубок',
-            self::GroupsPlayoff => 'Групи + плей-оф',
+            self::League => 'League',
+            self::Cup => 'Cup',
+            self::GroupsPlayoff => 'Groups + playoff',
         };
     }
 }

@@ -11,9 +11,9 @@ enum TournamentStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Draft => 'Чернетка',
-            self::Active => 'Триває',
-            self::Finished => 'Завершено',
+            self::Draft => 'Draft',
+            self::Active => 'In progress',
+            self::Finished => 'Finished',
         };
     }
 }

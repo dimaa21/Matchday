@@ -33,15 +33,15 @@ it('lets a captain edit only their own player', function () {
     $foreign = Player::factory()->create(['team_id' => $other->id, 'squad_number' => 8, 'position' => PlayerPosition::Forward]);
 
     $this->actingAs($captain)->patch(route('captain.players.update', $own), [
-        'name' => 'Нове імʼя',
+        'name' => 'New name',
         'squad_number' => 7,
         'position' => PlayerPosition::Forward->value,
     ])->assertRedirect();
 
-    expect($own->fresh()->name)->toBe('Нове імʼя');
+    expect($own->fresh()->name)->toBe('New name');
 
     $this->actingAs($captain)->patch(route('captain.players.update', $foreign), [
-        'name' => 'Чужий',
+        'name' => 'Someone else',
         'squad_number' => 8,
         'position' => PlayerPosition::Forward->value,
     ])->assertForbidden();

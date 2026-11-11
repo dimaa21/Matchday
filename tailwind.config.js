@@ -13,19 +13,15 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Outfit', ...defaultTheme.fontFamily.sans],
-                display: ['"Barlow Condensed"', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                ink: '#071018',
-                panel: '#101a24',
-                raised: '#172633',
-                line: '#2a3d4f',
-                mist: '#93a4b8',
-                snow: '#e8eef6',
-                pitch: '#d6ff3f',
-                flare: '#ff3b5c',
-                amber: '#ffb020',
+                navy: '#001e28',
+                paper: '#eef0f2',
+                live: '#c8102e',
+                ink: '#001e28',
+                line: '#e4e7ea',
+                mist: '#5c6b73',
             },
         },
     },

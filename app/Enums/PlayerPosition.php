@@ -12,20 +12,20 @@ enum PlayerPosition: string
     public function label(): string
     {
         return match ($this) {
-            self::Goalkeeper => 'Воротар',
-            self::Defender => 'Захисник',
-            self::Midfielder => 'Півзахисник',
-            self::Forward => 'Нападник',
+            self::Goalkeeper => 'Goalkeeper',
+            self::Defender => 'Defender',
+            self::Midfielder => 'Midfielder',
+            self::Forward => 'Forward',
         };
     }
 
     public function short(): string
     {
         return match ($this) {
-            self::Goalkeeper => 'ВР',
-            self::Defender => 'ЗХ',
-            self::Midfielder => 'ПЗ',
-            self::Forward => 'НП',
+            self::Goalkeeper => 'GK',
+            self::Defender => 'DF',
+            self::Midfielder => 'MF',
+            self::Forward => 'FW',
         };
     }
 }

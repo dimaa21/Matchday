@@ -14,12 +14,12 @@ enum MatchEventType: string
     public function label(): string
     {
         return match ($this) {
-            self::Goal => 'Гол',
-            self::OwnGoal => 'Автогол',
-            self::Penalty => 'Пенальті',
-            self::Yellow => 'Жовта картка',
-            self::Red => 'Червона картка',
-            self::Substitution => 'Заміна',
+            self::Goal => 'Goal',
+            self::OwnGoal => 'Own goal',
+            self::Penalty => 'Penalty',
+            self::Yellow => 'Yellow card',
+            self::Red => 'Red card',
+            self::Substitution => 'Substitution',
         };
     }
 

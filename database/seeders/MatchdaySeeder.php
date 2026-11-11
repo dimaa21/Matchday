@@ -28,13 +28,13 @@ class MatchdaySeeder extends Seeder
         mt_srand(20261111);
 
         User::factory()->admin()->create([
-            'name' => 'Марта Коваленко',
+            'name' => 'Marta Cole',
             'email' => 'admin@matchday.test',
         ]);
 
         $referees = collect([
-            ['Андрій Лисенко', 'referee@matchday.test'],
-            ['Ірина Савчук', 'referee2@matchday.test'],
+            ['Andrew Lane', 'referee@matchday.test'],
+            ['Irene Shaw', 'referee2@matchday.test'],
         ])->map(fn (array $row) => User::factory()->referee()->create([
             'name' => $row[0],
             'email' => $row[1],
@@ -52,7 +52,7 @@ class MatchdaySeeder extends Seeder
             $this->squad($team, $index);
 
             User::factory()->captain($team)->create([
-                'name' => 'Капітан '.$club['name'],
+                'name' => 'Captain '.$club['name'],
                 'email' => $index === 0 ? 'captain@matchday.test' : 'captain'.($index + 1).'@matchday.test',
             ]);
 
@@ -60,7 +60,7 @@ class MatchdaySeeder extends Seeder
         });
 
         $tournament = Tournament::query()->create([
-            'name' => 'Matchday Ліга',
+            'name' => 'Matchday League',
             'slug' => 'matchday-liga',
             'season' => '2026/27',
             'format' => TournamentFormat::League,
@@ -91,7 +91,7 @@ class MatchdaySeeder extends Seeder
                     $game->update([
                         'kickoff_at' => $round === 10 && $index === 0 ? now()->subMinutes(18) : $kickoff,
                         'referee_id' => $referees[$index % $referees->count()]->id,
-                        'venue' => $game->homeTeam->city.' Арена',
+                        'venue' => $game->homeTeam->city.' Arena',
                     ]);
 
                     if ($round < 10) {
@@ -273,8 +273,8 @@ class MatchdaySeeder extends Seeder
             13 => PlayerPosition::Forward,
         ];
 
-        $first = ['Андрій', 'Олег', 'Тарас', 'Максим', 'Денис', 'Іван', 'Богдан', 'Роман', 'Юрій', 'Назар', 'Владислав', 'Артем', 'Кирило', 'Остап', 'Марко', 'Сергій', 'Павло', 'Ілля', 'Данило', 'Єгор', 'Микола', 'Василь', 'Григорій', 'Леонід', 'Степан', 'Федір', 'Ярослав', 'Захар', 'Матвій', 'Олександр'];
-        $last = ['Коваленко', 'Шевченко', 'Бондар', 'Мельник', 'Ткаченко', 'Кравченко', 'Олійник', 'Шевчук', 'Бондаренко', 'Ткачук', 'Мороз', 'Лисенко', 'Савченко', 'Петренко', 'Іваненко', 'Бондарчук', 'Романюк', 'Гнатюк', 'Сидоренко', 'Павленко', 'Козак', 'Левченко', 'Марчук', 'Данилюк', 'Поліщук', 'Семенюк', 'Яременко', 'Білоус', 'Дорошенко', 'Кушнір'];
+        $first = ['Andrew', 'Owen', 'Thomas', 'Max', 'Dennis', 'John', 'Ben', 'Roman', 'George', 'Nathan', 'Victor', 'Arthur', 'Chris', 'Oscar', 'Mark', 'Simon', 'Paul', 'Leo', 'Daniel', 'Edward', 'Nicholas', 'William', 'Gregory', 'Leon', 'Stephen', 'Fred', 'Jacob', 'Zach', 'Matthew', 'Alexander'];
+        $last = ['Cole', 'Shaw', 'Bond', 'Miller', 'Taylor', 'Clark', 'Owen', 'Brooks', 'Baker', 'Morris', 'Frost', 'Lane', 'Sawyer', 'Peters', 'Harris', 'Grant', 'Stone', 'Palmer', 'Cox', 'Lewis', 'March', 'Daniels', 'Bell', 'Cooper', 'Walsh', 'Reed', 'Hayes', 'Bennett', 'Porter', 'Knight'];
 
         foreach ($positions as $number => $position) {
             $cursor = ($teamIndex * 15 + $number) % 30;
@@ -306,16 +306,16 @@ class MatchdaySeeder extends Seeder
     private function clubs(): array
     {
         return [
-            ['name' => 'Буревій', 'slug' => 'bureviy', 'city' => 'Київ', 'primary' => '#d6ff3f', 'secondary' => '#102018'],
-            ['name' => 'Хвиля', 'slug' => 'khvylia', 'city' => 'Одеса', 'primary' => '#3ec6ff', 'secondary' => '#071820'],
-            ['name' => 'Скеля', 'slug' => 'skelia', 'city' => 'Львів', 'primary' => '#ffb020', 'secondary' => '#1a1206'],
-            ['name' => 'Фортеця', 'slug' => 'fortetsia', 'city' => 'Харків', 'primary' => '#ff5a36', 'secondary' => '#1a0c08'],
-            ['name' => 'Прибій', 'slug' => 'prybiy', 'city' => 'Миколаїв', 'primary' => '#7aa2ff', 'secondary' => '#0c1224'],
-            ['name' => 'Степ', 'slug' => 'step', 'city' => 'Запоріжжя', 'primary' => '#f2e27a', 'secondary' => '#1a180c'],
-            ['name' => 'Політ', 'slug' => 'polit', 'city' => 'Дніпро', 'primary' => '#c084fc', 'secondary' => '#140c1c'],
-            ['name' => 'Замок', 'slug' => 'zamok', 'city' => 'Луцьк', 'primary' => '#9ae6b4', 'secondary' => '#0c1812'],
-            ['name' => 'Маяк', 'slug' => 'maiak', 'city' => 'Черкаси', 'primary' => '#fb7185', 'secondary' => '#1c0c12'],
-            ['name' => 'Вир', 'slug' => 'vyr', 'city' => 'Полтава', 'primary' => '#67e8f9', 'secondary' => '#071418'],
+            ['name' => 'Gale', 'slug' => 'bureviy', 'city' => 'Kyiv', 'primary' => '#1d4ed8', 'secondary' => '#ffffff'],
+            ['name' => 'Wave', 'slug' => 'khvylia', 'city' => 'Odesa', 'primary' => '#0e7490', 'secondary' => '#ffffff'],
+            ['name' => 'Rock', 'slug' => 'skelia', 'city' => 'Lviv', 'primary' => '#b45309', 'secondary' => '#ffffff'],
+            ['name' => 'Fortress', 'slug' => 'fortetsia', 'city' => 'Kharkiv', 'primary' => '#b91c1c', 'secondary' => '#ffffff'],
+            ['name' => 'Surf', 'slug' => 'prybiy', 'city' => 'Mykolaiv', 'primary' => '#0369a1', 'secondary' => '#ffffff'],
+            ['name' => 'Steppe', 'slug' => 'step', 'city' => 'Zaporizhzhia', 'primary' => '#a16207', 'secondary' => '#111111'],
+            ['name' => 'Flight', 'slug' => 'polit', 'city' => 'Dnipro', 'primary' => '#6d28d9', 'secondary' => '#ffffff'],
+            ['name' => 'Castle', 'slug' => 'zamok', 'city' => 'Lutsk', 'primary' => '#166534', 'secondary' => '#ffffff'],
+            ['name' => 'Beacon', 'slug' => 'maiak', 'city' => 'Cherkasy', 'primary' => '#be123c', 'secondary' => '#ffffff'],
+            ['name' => 'Whirl', 'slug' => 'vyr', 'city' => 'Poltava', 'primary' => '#0f766e', 'secondary' => '#ffffff'],
         ];
     }
 }

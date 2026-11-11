@@ -6,23 +6,23 @@ defineProps({ matches: Array });
 </script>
 
 <template>
-    <Head title="Суддівська" />
+    <Head title="Referee" />
     <AdminLayout>
-        <h1 class="font-display text-5xl uppercase">Мої матчі</h1>
-        <div class="mt-6 space-y-3">
+        <h1 class="text-xl font-bold">My matches</h1>
+        <div class="mt-4 bg-white">
             <Link
                 v-for="match in matches"
                 :key="match.id"
                 :href="match.can_officiate ? route('referee.matches.show', match.id) : route('matches.show', match.id)"
-                class="block rounded-3xl border border-line bg-panel px-5 py-4"
+                class="block border-b border-[#eee] px-3 py-3 hover:bg-[#f7f9fa]"
             >
-                <p class="text-xs uppercase tracking-[0.16em]" :class="match.status === 'live' ? 'text-flare' : 'text-mist'">
-                    {{ match.status_label }} · тур {{ match.round }} · {{ match.kickoff_label }}
+                <p class="text-[12px]" :class="match.status === 'live' ? 'font-bold text-live' : 'text-mist'">
+                    {{ match.status_label }} · round {{ match.round }} · {{ match.kickoff_label }}
                 </p>
-                <p class="mt-1 font-display text-3xl uppercase">
+                <p class="text-[16px] font-bold">
                     {{ match.home }} {{ match.home_score }}:{{ match.away_score }} {{ match.away }}
                 </p>
-                <p class="text-sm text-mist">{{ match.tournament }}</p>
+                <p class="text-[12px] text-mist">{{ match.tournament }}</p>
             </Link>
         </div>
     </AdminLayout>

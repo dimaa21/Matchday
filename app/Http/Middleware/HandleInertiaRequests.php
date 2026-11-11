@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\TournamentStatus;
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -47,6 +49,15 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
+            'competitions' => fn () => Tournament::query()
+                ->where('status', '!=', TournamentStatus::Draft)
+                ->orderBy('name')
+                ->get(['name', 'slug', 'season'])
+                ->map(fn (Tournament $tournament) => [
+                    'name' => $tournament->name,
+                    'slug' => $tournament->slug,
+                    'season' => $tournament->season,
+                ]),
         ];
     }
 }

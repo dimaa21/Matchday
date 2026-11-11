@@ -13,7 +13,7 @@ class TeamFactory extends Factory
 {
     public function definition(): array
     {
-        $name = fake()->unique()->city().' '.fake()->randomElement(['Юнайтед', 'Атлетик', 'Сіті']);
+        $name = fake()->unique()->city().' '.fake()->randomElement(['United', 'Athletic', 'City']);
 
         return [
             'name' => $name,

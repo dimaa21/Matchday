@@ -27,7 +27,7 @@ class GameFactory extends Factory
             'away_score' => 0,
             'is_bye' => false,
             'kickoff_at' => now(),
-            'venue' => fake()->city().' Арена',
+            'venue' => fake()->city().' Arena',
         ];
     }
 

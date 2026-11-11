@@ -79,7 +79,7 @@ class ConsoleController extends Controller
         $this->authorize('officiate', $match);
         $live->start($match);
 
-        return back()->with('success', 'Матч розпочато.');
+        return back()->with('success', 'Match started.');
     }
 
     public function finish(Game $match, LiveMatchService $live): RedirectResponse
@@ -87,14 +87,14 @@ class ConsoleController extends Controller
         $this->authorize('officiate', $match);
         $live->finish($match);
 
-        return back()->with('success', 'Матч завершено.');
+        return back()->with('success', 'Match finished.');
     }
 
     public function storeEvent(StoreMatchEventRequest $request, Game $match, LiveMatchService $live): RedirectResponse
     {
         $live->record($match, $request->validated());
 
-        return back()->with('success', 'Подію додано.');
+        return back()->with('success', 'Event added.');
     }
 
     public function destroyEvent(Game $match, MatchEvent $event, LiveMatchService $live): RedirectResponse
@@ -102,6 +102,6 @@ class ConsoleController extends Controller
         $this->authorize('officiate', $match);
         $live->delete($match, $event);
 
-        return back()->with('success', 'Подію скасовано.');
+        return back()->with('success', 'Event removed.');
     }
 }

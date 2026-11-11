@@ -50,7 +50,7 @@ The password for every account is `password`.
 | Administrator | `admin@matchday.test` |
 | Referee | `referee@matchday.test` |
 | Second referee | `referee2@matchday.test` |
-| Captain of Bureviy | `captain@matchday.test` |
+| Captain of Gale | `captain@matchday.test` |
 | Captains of the other clubs | `captain2@matchday.test` … `captain10@matchday.test` |
 
 The seeder creates the Matchday League for the 2026/27 season: 10 teams of 15 players, a double round-robin, rounds 1–9 already played, and one live match in round 10.

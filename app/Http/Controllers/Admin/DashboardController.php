@@ -37,7 +37,7 @@ class DashboardController extends Controller
                 'live' => Game::query()->where('status', MatchStatus::Live)->count(),
             ],
             'rounds' => $rounds->map(fn ($row) => [
-                'tournament' => $names[$row->tournament_id] ?? 'Турнір',
+                'tournament' => $names[$row->tournament_id] ?? 'Tournament',
                 'round' => $row->round,
                 'goals' => (int) $row->goals,
             ]),

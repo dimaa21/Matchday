@@ -13,70 +13,65 @@ defineProps({
     <Head :title="team.name" />
 
     <PublicLayout>
-        <section class="panel overflow-hidden">
-            <div class="h-3" :style="{ background: team.primary_color }" />
-            <div class="flex flex-wrap items-end justify-between gap-4 p-6">
-                <div class="flex items-center gap-4">
-                    <span class="flex h-16 w-16 items-center justify-center rounded-2xl font-display text-3xl" :style="{ background: team.primary_color, color: team.secondary_color }">
-                        {{ team.initials }}
-                    </span>
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.2em] text-mist">{{ team.city }}</p>
-                        <h1 class="font-display text-5xl uppercase">{{ team.name }}</h1>
-                    </div>
+        <section class="bg-white">
+            <div class="h-1" :style="{ background: team.primary_color }" />
+            <div class="flex flex-wrap items-end justify-between gap-4 px-3 py-4">
+                <div>
+                    <p class="text-[11px] uppercase tracking-wide text-mist">{{ team.city }}</p>
+                    <h1 class="text-[22px] font-bold">{{ team.name }}</h1>
                 </div>
-                <dl class="grid grid-cols-3 gap-4 text-center">
+                <dl class="grid grid-cols-3 gap-4 text-center text-[13px]">
                     <div>
-                        <dt class="text-[11px] uppercase tracking-[0.16em] text-mist">І</dt>
-                        <dd class="font-display text-3xl">{{ team.stats.played }}</dd>
+                        <dt class="text-[11px] uppercase text-mist">MP</dt>
+                        <dd class="text-[18px] font-bold">{{ team.stats.played }}</dd>
                     </div>
                     <div>
-                        <dt class="text-[11px] uppercase tracking-[0.16em] text-mist">В-Н-П</dt>
-                        <dd class="font-display text-3xl">{{ team.stats.won }}-{{ team.stats.drawn }}-{{ team.stats.lost }}</dd>
+                        <dt class="text-[11px] uppercase text-mist">W-D-L</dt>
+                        <dd class="text-[18px] font-bold">{{ team.stats.won }}-{{ team.stats.drawn }}-{{ team.stats.lost }}</dd>
                     </div>
                     <div>
-                        <dt class="text-[11px] uppercase tracking-[0.16em] text-mist">М'ячі</dt>
-                        <dd class="font-display text-3xl">{{ team.stats.goals_for }}:{{ team.stats.goals_against }}</dd>
+                        <dt class="text-[11px] uppercase text-mist">Goals</dt>
+                        <dd class="text-[18px] font-bold">{{ team.stats.goals_for }}:{{ team.stats.goals_against }}</dd>
                     </div>
                 </dl>
             </div>
         </section>
 
-        <div class="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-            <section class="panel overflow-x-auto">
-                <table class="w-full min-w-[560px] text-left text-sm">
-                    <thead class="text-[11px] uppercase tracking-[0.16em] text-mist">
+        <div class="mt-3 grid gap-3 lg:grid-cols-[1.3fr_0.7fr]">
+            <section class="overflow-x-auto bg-white">
+                <table class="w-full min-w-[520px] text-left text-[13px]">
+                    <thead class="bg-[#f0f2f4] text-[11px] uppercase text-mist">
                         <tr>
-                            <th class="px-4 py-3">#</th>
-                            <th>Гравець</th>
-                            <th>Ампл.</th>
-                            <th>Г</th>
-                            <th>А</th>
-                            <th>Ж</th>
-                            <th>Ч</th>
+                            <th class="px-3 py-2">#</th>
+                            <th>Player</th>
+                            <th>Pos</th>
+                            <th class="px-2 text-center">G</th>
+                            <th class="px-2 text-center">A</th>
+                            <th class="px-2 text-center">YC</th>
+                            <th class="px-2 text-center">RC</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="player in players" :key="player.id" class="border-t border-line">
-                            <td class="px-4 py-3 text-mist">{{ player.number }}</td>
+                        <tr v-for="player in players" :key="player.id" class="border-t border-[#eee]">
+                            <td class="px-3 py-2 text-mist">{{ player.number }}</td>
                             <td>
-                                <Link :href="route('players.show', player.id)">{{ player.name }}</Link>
+                                <Link :href="route('players.show', player.id)" class="font-bold hover:underline">{{ player.name }}</Link>
                             </td>
                             <td class="text-mist">{{ player.position_short }}</td>
-                            <td>{{ player.stats.goals }}</td>
-                            <td>{{ player.stats.assists }}</td>
-                            <td>{{ player.stats.yellows }}</td>
-                            <td>{{ player.stats.reds }}</td>
+                            <td class="px-2 text-center">{{ player.stats.goals }}</td>
+                            <td class="px-2 text-center">{{ player.stats.assists }}</td>
+                            <td class="px-2 text-center">{{ player.stats.yellows }}</td>
+                            <td class="px-2 text-center">{{ player.stats.reds }}</td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <section class="panel p-5">
-                <h2 class="font-display text-3xl uppercase">Останні матчі</h2>
-                <ul class="mt-3 divide-y divide-line text-sm">
-                    <li v-for="match in recent" :key="match.id" class="py-3">
-                        <Link :href="route('matches.show', match.id)">
+            <section class="bg-white">
+                <h2 class="border-b border-[#eee] bg-[#f0f2f4] px-3 py-2 text-[13px] font-bold">Recent matches</h2>
+                <ul>
+                    <li v-for="match in recent" :key="match.id" class="border-b border-[#eee] px-3 py-2 text-[13px]">
+                        <Link :href="route('matches.show', match.id)" class="hover:underline">
                             {{ match.home_team?.name }} {{ match.home_score }}:{{ match.away_score }} {{ match.away_team?.name }}
                         </Link>
                     </li>

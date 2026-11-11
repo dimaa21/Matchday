@@ -49,7 +49,7 @@ class GameController extends Controller
         $game = Game::query()->create($request->validated());
         $this->refreshIfFinished($game, $standings);
 
-        return redirect()->route('admin.matches.index')->with('success', 'Матч створено.');
+        return redirect()->route('admin.matches.index')->with('success', 'Match created.');
     }
 
     public function edit(Game $match): Response
@@ -81,7 +81,7 @@ class GameController extends Controller
         $match->update($request->validated());
         $this->refreshIfFinished($match->fresh(), $standings);
 
-        return redirect()->route('admin.matches.index')->with('success', 'Матч оновлено.');
+        return redirect()->route('admin.matches.index')->with('success', 'Match updated.');
     }
 
     public function destroy(Game $match, StandingsService $standings): RedirectResponse
@@ -94,7 +94,7 @@ class GameController extends Controller
             $standings->invalidate($tournament);
         }
 
-        return redirect()->route('admin.matches.index')->with('success', 'Матч видалено.');
+        return redirect()->route('admin.matches.index')->with('success', 'Match deleted.');
     }
 
     private function refreshIfFinished(Game $game, StandingsService $standings): void

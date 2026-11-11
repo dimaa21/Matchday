@@ -49,7 +49,7 @@ class TeamController extends Controller
 
         Team::query()->create($data);
 
-        return redirect()->route('admin.teams.index')->with('success', 'Команду створено.');
+        return redirect()->route('admin.teams.index')->with('success', 'Team created.');
     }
 
     public function edit(Team $team): Response
@@ -83,7 +83,7 @@ class TeamController extends Controller
 
         $team->update($data);
 
-        return redirect()->route('admin.teams.index')->with('success', 'Команду оновлено.');
+        return redirect()->route('admin.teams.index')->with('success', 'Team updated.');
     }
 
     public function destroy(Team $team): RedirectResponse
@@ -91,7 +91,7 @@ class TeamController extends Controller
         $this->authorize('delete', $team);
         $team->delete();
 
-        return redirect()->route('admin.teams.index')->with('success', 'Команду видалено.');
+        return redirect()->route('admin.teams.index')->with('success', 'Team deleted.');
     }
 
     private function uniqueSlug(string $name): string

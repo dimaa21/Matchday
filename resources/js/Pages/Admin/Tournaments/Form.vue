@@ -50,62 +50,62 @@ function submit() {
 </script>
 
 <template>
-    <Head :title="tournament ? 'Турнір' : 'Новий турнір'" />
+    <Head :title="tournament ? 'Tournament' : 'New tournament'" />
     <AdminLayout>
         <form class="max-w-3xl space-y-4" @submit.prevent="submit">
-            <h1 class="font-display text-5xl uppercase">{{ tournament ? tournament.name : 'Новий турнір' }}</h1>
-            <label class="block text-sm">Назва
-                <input v-model="form.name" class="mt-1 w-full rounded-xl border-line bg-raised" />
+            <h1 class="text-xl font-bold">{{ tournament ? tournament.name : 'New tournament' }}</h1>
+            <label class="block text-[13px]">Name
+                <input v-model="form.name" class="field" />
             </label>
             <div class="grid gap-4 sm:grid-cols-2">
-                <label class="text-sm">Сезон
-                    <input v-model="form.season" class="mt-1 w-full rounded-xl border-line bg-raised" />
+                <label class="text-[13px]">Season
+                    <input v-model="form.season" class="field" />
                 </label>
-                <label class="text-sm">Формат
-                    <select v-model="form.format" class="mt-1 w-full rounded-xl border-line bg-raised">
-                        <option value="league">Ліга</option>
-                        <option value="cup">Кубок</option>
-                        <option value="groups_playoff">Групи + плей-оф</option>
+                <label class="text-[13px]">Format
+                    <select v-model="form.format" class="field">
+                        <option value="league">League</option>
+                        <option value="cup">Cup</option>
+                        <option value="groups_playoff">Groups + playoff</option>
                     </select>
                 </label>
-                <label class="text-sm">Статус
-                    <select v-model="form.status" class="mt-1 w-full rounded-xl border-line bg-raised">
-                        <option value="draft">Чернетка</option>
-                        <option value="active">Триває</option>
-                        <option value="finished">Завершено</option>
+                <label class="text-[13px]">Status
+                    <select v-model="form.status" class="field">
+                        <option value="draft">Draft</option>
+                        <option value="active">In progress</option>
+                        <option value="finished">Finished</option>
                     </select>
                 </label>
-                <label class="text-sm">Кола
-                    <select v-model="form.legs" class="mt-1 w-full rounded-xl border-line bg-raised">
-                        <option :value="1">Одне</option>
-                        <option :value="2">Два</option>
+                <label class="text-[13px]">Legs
+                    <select v-model="form.legs" class="field">
+                        <option :value="1">One</option>
+                        <option :value="2">Two</option>
                     </select>
                 </label>
-                <label class="text-sm">Очки за перемогу
-                    <input v-model.number="form.points_for_win" type="number" min="0" max="10" class="mt-1 w-full rounded-xl border-line bg-raised" />
+                <label class="text-[13px]">Points for a win
+                    <input v-model.number="form.points_for_win" type="number" min="0" max="10" class="field" />
                 </label>
-                <label class="text-sm">Очки за нічию
-                    <input v-model.number="form.points_for_draw" type="number" min="0" max="10" class="mt-1 w-full rounded-xl border-line bg-raised" />
+                <label class="text-[13px]">Points for a draw
+                    <input v-model.number="form.points_for_draw" type="number" min="0" max="10" class="field" />
                 </label>
             </div>
-            <fieldset class="rounded-3xl border border-line p-4">
-                <legend class="px-2 text-sm text-mist">Команди</legend>
-                <label v-for="team in teams" :key="team.id" class="flex items-center gap-3 py-2 text-sm">
+            <fieldset class="bg-white p-4">
+                <legend class="px-1 text-[13px] font-bold">Teams</legend>
+                <label v-for="team in teams" :key="team.id" class="flex items-center gap-3 py-2 text-[13px]">
                     <input type="checkbox" :checked="selected.has(team.id)" @change="toggle(team.id)" />
                     <span class="flex-1">{{ team.name }} <span class="text-mist">{{ team.city }}</span></span>
                     <input
                         v-if="form.format === 'groups_playoff' && selected.has(team.id)"
                         :value="groupOf(team.id)"
                         placeholder="A"
-                        class="w-16 rounded-lg border-line bg-raised text-center"
+                        class="w-16 rounded border-gray-300 text-center text-sm"
                         @input="setGroup(team.id, $event.target.value)"
                     />
                 </label>
             </fieldset>
-            <p v-if="form.hasErrors" class="text-sm text-flare">Перевірте поля форми.</p>
+            <p v-if="form.hasErrors" class="text-[13px] text-live">Check the form fields.</p>
             <div class="flex gap-3">
-                <button class="rounded-full bg-pitch px-5 py-2 text-sm font-semibold text-ink" :disabled="form.processing">Зберегти</button>
-                <Link :href="route('admin.tournaments.index')" class="px-3 py-2 text-sm text-mist">Назад</Link>
+                <button class="btn" :disabled="form.processing">Save</button>
+                <Link :href="route('admin.tournaments.index')" class="px-3 py-2 text-[13px] text-mist">Back</Link>
             </div>
         </form>
     </AdminLayout>

@@ -15,7 +15,7 @@ class TournamentFactory extends Factory
 {
     public function definition(): array
     {
-        $name = 'Ліга '.fake()->unique()->word();
+        $name = fake()->unique()->word().' League';
 
         return [
             'name' => $name,

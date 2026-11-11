@@ -23,7 +23,7 @@ class LiveMatchService
     {
         if ($game->status !== MatchStatus::Scheduled || $game->is_bye) {
             throw ValidationException::withMessages([
-                'match' => 'Почати можна лише запланований матч.',
+                'match' => 'Only a scheduled match can be started.',
             ]);
         }
 
@@ -38,7 +38,7 @@ class LiveMatchService
     {
         if ($game->status !== MatchStatus::Live) {
             throw ValidationException::withMessages([
-                'match' => 'Завершити можна лише матч, який іде просто зараз.',
+                'match' => 'Only a live match can be finished.',
             ]);
         }
 
@@ -58,7 +58,7 @@ class LiveMatchService
     {
         if ($game->status !== MatchStatus::Live) {
             throw ValidationException::withMessages([
-                'match' => 'Події можна додавати лише під час живого матчу.',
+                'match' => 'Events can only be added during a live match.',
             ]);
         }
 
@@ -68,7 +68,7 @@ class LiveMatchService
 
         if ($this->suspensions->isSuspended($player, $game)) {
             throw ValidationException::withMessages([
-                'player_id' => 'Гравець дискваліфікований на цей матч.',
+                'player_id' => 'This player is suspended for this match.',
             ]);
         }
 
@@ -78,7 +78,7 @@ class LiveMatchService
         if ($type === MatchEventType::Substitution) {
             if ($secondaryId === null) {
                 throw ValidationException::withMessages([
-                    'secondary_player_id' => 'Оберіть гравця, який виходить на поле.',
+                    'secondary_player_id' => 'Choose the player coming on.',
                 ]);
             }
 
@@ -87,13 +87,13 @@ class LiveMatchService
 
             if ($incoming->team_id !== $player->team_id) {
                 throw ValidationException::withMessages([
-                    'secondary_player_id' => 'Заміна має бути з тієї самої команди.',
+                    'secondary_player_id' => 'The substitute must be from the same team.',
                 ]);
             }
 
             if ($this->suspensions->isSuspended($incoming, $game)) {
                 throw ValidationException::withMessages([
-                    'secondary_player_id' => 'Гравець, що виходить, дискваліфікований.',
+                    'secondary_player_id' => 'The player coming on is suspended.',
                 ]);
             }
         } else {
@@ -109,7 +109,7 @@ class LiveMatchService
 
             if ($assist->team_id !== $player->team_id) {
                 throw ValidationException::withMessages([
-                    'assist_player_id' => 'Асистент має бути з команди, що забила.',
+                    'assist_player_id' => 'The assist must come from the scoring team.',
                 ]);
             }
         }
@@ -141,7 +141,7 @@ class LiveMatchService
 
         if ($game->status !== MatchStatus::Live) {
             throw ValidationException::withMessages([
-                'match' => 'Видаляти події можна лише під час живого матчу.',
+                'match' => 'Events can only be removed during a live match.',
             ]);
         }
 
@@ -188,7 +188,7 @@ class LiveMatchService
     {
         if (! in_array($player->team_id, [$game->home_team_id, $game->away_team_id], true)) {
             throw ValidationException::withMessages([
-                'player_id' => 'Гравець не бере участі в цьому матчі.',
+                'player_id' => 'This player is not in this match.',
             ]);
         }
     }

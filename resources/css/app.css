@@ -4,23 +4,24 @@
 
 @layer base {
     html {
-        @apply bg-ink;
+        @apply bg-paper;
     }
 
     body {
-        @apply min-h-screen bg-ink font-sans text-snow antialiased;
+        @apply min-h-screen bg-paper font-sans text-navy antialiased;
     }
 }
 
 @layer components {
-    .pitch-grid {
-        background-image:
-            linear-gradient(rgba(214, 255, 63, 0.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(214, 255, 63, 0.045) 1px, transparent 1px);
-        background-size: 56px 56px;
+    .field {
+        @apply mt-1 w-full rounded border-gray-300 text-sm shadow-sm focus:border-navy focus:ring-navy;
     }
 
-    .panel {
-        @apply rounded-3xl border border-line bg-panel;
+    .btn {
+        @apply inline-flex items-center rounded bg-live px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#a30d26];
+    }
+
+    .btn-navy {
+        @apply inline-flex items-center rounded bg-navy px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#013042];
     }
 }

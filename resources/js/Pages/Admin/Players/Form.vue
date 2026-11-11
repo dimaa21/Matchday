@@ -28,30 +28,30 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Гравець" />
+    <Head title="Player" />
     <AdminLayout>
         <form class="max-w-xl space-y-4" @submit.prevent="submit">
-            <h1 class="font-display text-5xl uppercase">{{ player ? player.name : 'Новий гравець' }}</h1>
-            <label class="block text-sm">Команда
-                <select v-model="form.team_id" class="mt-1 w-full rounded-xl border-line bg-raised">
+            <h1 class="text-xl font-bold">{{ player ? player.name : 'New player' }}</h1>
+            <label class="block text-[13px]">Team
+                <select v-model="form.team_id" class="field">
                     <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.name }}</option>
                 </select>
             </label>
-            <label class="block text-sm">Ім'я<input v-model="form.name" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-            <div class="grid grid-cols-2 gap-4">
-                <label class="text-sm">Номер<input v-model.number="form.squad_number" type="number" min="1" max="99" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-                <label class="text-sm">Позиція
-                    <select v-model="form.position" class="mt-1 w-full rounded-xl border-line bg-raised">
-                        <option value="gk">Воротар</option>
-                        <option value="df">Захисник</option>
-                        <option value="mf">Півзахисник</option>
-                        <option value="fw">Нападник</option>
+            <label class="block text-[13px]">Name<input v-model="form.name" class="field" /></label>
+            <div class="grid gap-4 sm:grid-cols-2">
+                <label class="text-[13px]">Number<input v-model.number="form.squad_number" type="number" min="1" max="99" class="field" /></label>
+                <label class="text-[13px]">Position
+                    <select v-model="form.position" class="field">
+                        <option value="gk">Goalkeeper</option>
+                        <option value="df">Defender</option>
+                        <option value="mf">Midfielder</option>
+                        <option value="fw">Forward</option>
                     </select>
                 </label>
             </div>
-            <label class="block text-sm">Фото<input type="file" accept="image/*" class="mt-1 block" @input="form.photo = $event.target.files[0]" /></label>
-            <button class="rounded-full bg-pitch px-5 py-2 text-sm font-semibold text-ink">Зберегти</button>
-            <Link :href="route('admin.players.index')" class="ml-3 text-sm text-mist">Назад</Link>
+            <label class="block text-[13px]">Photo<input type="file" accept="image/*" class="mt-1 block text-sm" @input="form.photo = $event.target.files[0]" /></label>
+            <button class="btn">Save</button>
+            <Link :href="route('admin.players.index')" class="ml-3 text-[13px] text-mist">Back</Link>
         </form>
     </AdminLayout>
 </template>

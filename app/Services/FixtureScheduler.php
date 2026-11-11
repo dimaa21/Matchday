@@ -25,7 +25,7 @@ class FixtureScheduler
 
         if ($teams->count() < 2) {
             throw ValidationException::withMessages([
-                'teams' => 'Для календаря потрібно щонайменше дві команди.',
+                'teams' => 'A calendar needs at least two teams.',
             ]);
         }
 
@@ -49,7 +49,7 @@ class FixtureScheduler
     {
         if ($tournament->format !== TournamentFormat::GroupsPlayoff) {
             throw ValidationException::withMessages([
-                'format' => 'Плей-оф доступний лише для формату «групи + плей-оф».',
+                'format' => 'Playoffs are only available for the groups + playoff format.',
             ]);
         }
 
@@ -61,13 +61,13 @@ class FixtureScheduler
 
         if ($unfinished) {
             throw ValidationException::withMessages([
-                'fixtures' => 'Спочатку завершіть усі матчі групового етапу.',
+                'fixtures' => 'Finish every group-stage match first.',
             ]);
         }
 
         if ($tournament->games()->whereNull('group_name')->exists()) {
             throw ValidationException::withMessages([
-                'fixtures' => 'Сітка плей-оф уже створена.',
+                'fixtures' => 'The playoff bracket already exists.',
             ]);
         }
 
@@ -75,7 +75,7 @@ class FixtureScheduler
 
         if (count($seeds) < 2) {
             throw ValidationException::withMessages([
-                'fixtures' => 'Недостатньо команд для плей-оф.',
+                'fixtures' => 'Not enough teams for a playoff.',
             ]);
         }
 
@@ -142,7 +142,7 @@ class FixtureScheduler
                 'is_bye' => $item['is_bye'],
                 'status' => $item['is_bye'] ? MatchStatus::Finished : MatchStatus::Scheduled,
                 'kickoff_at' => $item['is_bye'] ? null : $kickoff->copy()->addWeeks($item['round'] - 1),
-                'venue' => $home?->city ? $home->city.' Арена' : null,
+                'venue' => $home?->city ? $home->city.' Arena' : null,
             ]);
 
             $ids[$item['round'].':'.$item['bracket_slot']] = $game;
@@ -194,7 +194,7 @@ class FixtureScheduler
                     'is_bye' => $pairing['is_bye'],
                     'status' => $pairing['is_bye'] ? MatchStatus::Finished : MatchStatus::Scheduled,
                     'kickoff_at' => $pairing['is_bye'] ? null : $kickoff->copy()->addWeeks($pairing['round'] - 1),
-                    'venue' => $home?->city ? $home->city.' Арена' : null,
+                    'venue' => $home?->city ? $home->city.' Arena' : null,
                 ]);
                 $created++;
             }
@@ -250,7 +250,7 @@ class FixtureScheduler
 
         if ($played) {
             throw ValidationException::withMessages([
-                'fixtures' => 'Неможливо перегенерувати календар: частина матчів уже зіграна.',
+                'fixtures' => 'The calendar cannot be regenerated because some matches have already been played.',
             ]);
         }
     }

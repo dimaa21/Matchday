@@ -11,9 +11,9 @@ enum MatchStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Scheduled => 'Заплановано',
-            self::Live => 'Наживо',
-            self::Finished => 'Завершено',
+            self::Scheduled => 'Scheduled',
+            self::Live => 'Live',
+            self::Finished => 'Finished',
         };
     }
 }

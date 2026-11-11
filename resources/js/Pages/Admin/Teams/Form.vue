@@ -8,8 +8,8 @@ const form = useForm({
     name: props.team?.name ?? '',
     slug: props.team?.slug ?? '',
     city: props.team?.city ?? '',
-    primary_color: props.team?.primary_color ?? '#d6ff3f',
-    secondary_color: props.team?.secondary_color ?? '#101a24',
+    primary_color: props.team?.primary_color ?? '#1d4ed8',
+    secondary_color: props.team?.secondary_color ?? '#ffffff',
     logo: null,
 });
 
@@ -26,22 +26,22 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Команда" />
+    <Head title="Team" />
     <AdminLayout>
         <form class="max-w-xl space-y-4" @submit.prevent="submit">
-            <h1 class="font-display text-5xl uppercase">{{ team ? team.name : 'Нова команда' }}</h1>
-            <label class="block text-sm">Назва<input v-model="form.name" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-            <label class="block text-sm">Slug<input v-model="form.slug" class="mt-1 w-full rounded-xl border-line bg-raised" placeholder="заповниться само" /></label>
-            <label class="block text-sm">Місто<input v-model="form.city" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-            <div class="flex gap-4">
-                <label class="text-sm">Основний<input v-model="form.primary_color" type="color" class="mt-1 block h-12 w-20 bg-transparent" /></label>
-                <label class="text-sm">Додатковий<input v-model="form.secondary_color" type="color" class="mt-1 block h-12 w-20 bg-transparent" /></label>
+            <h1 class="text-xl font-bold">{{ team ? team.name : 'New team' }}</h1>
+            <label class="block text-[13px]">Name<input v-model="form.name" class="field" /></label>
+            <label class="block text-[13px]">Slug<input v-model="form.slug" class="field" placeholder="filled in automatically" /></label>
+            <label class="block text-[13px]">City<input v-model="form.city" class="field" /></label>
+            <div class="grid grid-cols-2 gap-4">
+                <label class="text-[13px]">Primary<input v-model="form.primary_color" type="color" class="mt-1 block h-10 w-16 bg-transparent" /></label>
+                <label class="text-[13px]">Secondary<input v-model="form.secondary_color" type="color" class="mt-1 block h-10 w-16 bg-transparent" /></label>
             </div>
-            <label class="block text-sm">Лого
+            <label class="block text-[13px]">Logo
                 <input type="file" accept="image/*" class="mt-1 block text-sm" @input="form.logo = $event.target.files[0]" />
             </label>
-            <button class="rounded-full bg-pitch px-5 py-2 text-sm font-semibold text-ink">Зберегти</button>
-            <Link :href="route('admin.teams.index')" class="ml-3 text-sm text-mist">Назад</Link>
+            <button class="btn">Save</button>
+            <Link :href="route('admin.teams.index')" class="ml-3 text-[13px] text-mist">Back</Link>
         </form>
     </AdminLayout>
 </template>

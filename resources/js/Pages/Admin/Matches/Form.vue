@@ -36,48 +36,48 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Матч" />
+    <Head title="Match" />
     <AdminLayout>
         <form class="max-w-2xl space-y-4" @submit.prevent="submit">
-            <h1 class="font-display text-5xl uppercase">{{ match ? 'Матч' : 'Новий матч' }}</h1>
-            <label class="block text-sm">Турнір
-                <select v-model="form.tournament_id" class="mt-1 w-full rounded-xl border-line bg-raised">
+            <h1 class="text-xl font-bold">{{ match ? 'Match' : 'New match' }}</h1>
+            <label class="block text-[13px]">Tournament
+                <select v-model="form.tournament_id" class="field">
                     <option v-for="tournament in tournaments" :key="tournament.id" :value="tournament.id">{{ tournament.name }}</option>
                 </select>
             </label>
             <div class="grid gap-4 sm:grid-cols-2">
-                <label class="text-sm">Тур<input v-model.number="form.round" type="number" min="1" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-                <label class="text-sm">Група<input v-model="form.group_name" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-                <label class="text-sm">Господарі
-                    <select v-model="form.home_team_id" class="mt-1 w-full rounded-xl border-line bg-raised">
+                <label class="text-[13px]">Round<input v-model.number="form.round" type="number" min="1" class="field" /></label>
+                <label class="text-[13px]">Group<input v-model="form.group_name" class="field" /></label>
+                <label class="text-[13px]">Home
+                    <select v-model="form.home_team_id" class="field">
                         <option value="">—</option>
                         <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.name }}</option>
                     </select>
                 </label>
-                <label class="text-sm">Гості
-                    <select v-model="form.away_team_id" class="mt-1 w-full rounded-xl border-line bg-raised">
+                <label class="text-[13px]">Away
+                    <select v-model="form.away_team_id" class="field">
                         <option value="">—</option>
                         <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.name }}</option>
                     </select>
                 </label>
-                <label class="text-sm">Суддя
-                    <select v-model="form.referee_id" class="mt-1 w-full rounded-xl border-line bg-raised">
+                <label class="text-[13px]">Referee
+                    <select v-model="form.referee_id" class="field">
                         <option value="">—</option>
                         <option v-for="referee in referees" :key="referee.id" :value="referee.id">{{ referee.name }}</option>
                     </select>
                 </label>
-                <label class="text-sm">Статус
-                    <select v-model="form.status" class="mt-1 w-full rounded-xl border-line bg-raised">
+                <label class="text-[13px]">Status
+                    <select v-model="form.status" class="field">
                         <option v-for="status in statuses" :key="status.value" :value="status.value">{{ status.label }}</option>
                     </select>
                 </label>
-                <label class="text-sm">Початок<input v-model="form.kickoff_at" type="datetime-local" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-                <label class="text-sm">Стадіон<input v-model="form.venue" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-                <label class="text-sm">Голи господарів<input v-model.number="form.home_score" type="number" min="0" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
-                <label class="text-sm">Голи гостей<input v-model.number="form.away_score" type="number" min="0" class="mt-1 w-full rounded-xl border-line bg-raised" /></label>
+                <label class="text-[13px]">Kickoff<input v-model="form.kickoff_at" type="datetime-local" class="field" /></label>
+                <label class="text-[13px]">Venue<input v-model="form.venue" class="field" /></label>
+                <label class="text-[13px]">Home goals<input v-model.number="form.home_score" type="number" min="0" class="field" /></label>
+                <label class="text-[13px]">Away goals<input v-model.number="form.away_score" type="number" min="0" class="field" /></label>
             </div>
-            <button class="rounded-full bg-pitch px-5 py-2 text-sm font-semibold text-ink">Зберегти</button>
-            <Link :href="route('admin.matches.index')" class="ml-3 text-sm text-mist">Назад</Link>
+            <button class="btn">Save</button>
+            <Link :href="route('admin.matches.index')" class="ml-3 text-[13px] text-mist">Back</Link>
         </form>
     </AdminLayout>
 </template>
