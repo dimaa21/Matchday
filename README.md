@@ -10,8 +10,6 @@ An organizer builds a tournament and generates the calendar. A captain manages t
 
 ![Match](docs/screenshots/match.png)
 
-Put screenshots in `docs/screenshots/`.
-
 ## Stack
 
 The app runs on **Laravel 12** and PHP 8.3. Laravel 11 was blocked by Composer at the time of creation because of unfixed security advisories (the patches exist only in 12.x), so the skeleton is Laravel 12 with the same packages: Inertia.js, Vue 3, Tailwind CSS, Laravel Breeze, Sanctum, Reverb, Echo, Pest, and Sail (MySQL 8.4 + Redis).
