@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Enums;
+
+enum UserRole: string
+{
+    case Admin = 'admin';
+    case Referee = 'referee';
+    case Captain = 'captain';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Admin => 'Адміністратор',
+            self::Referee => 'Суддя',
+            self::Captain => 'Капітан',
+        };
+    }
+}

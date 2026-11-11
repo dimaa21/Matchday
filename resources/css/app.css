@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply bg-ink;
+    }
+
+    body {
+        @apply min-h-screen bg-ink font-sans text-snow antialiased;
+    }
+}
+
+@layer components {
+    .pitch-grid {
+        background-image:
+            linear-gradient(rgba(214, 255, 63, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(214, 255, 63, 0.045) 1px, transparent 1px);
+        background-size: 56px 56px;
+    }
+
+    .panel {
+        @apply rounded-3xl border border-line bg-panel;
+    }
+}
