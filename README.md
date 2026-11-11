@@ -1,26 +1,26 @@
 # Matchday
 
-Платформа для аматорських футбольних ліг і турнірів: календар, таблиця, живий рахунок і статистика сезону.
+A platform for amateur football leagues and tournaments: fixtures, standings, a live score, and season statistics.
 
-Організатор збирає турнір і генерує календар. Капітан веде заявку своєї команди. Суддя з телефона додає голи, картки й заміни — публічна сторінка матчу оновлює рахунок через WebSocket. Після фінального свистка таблиця перераховується у черзі.
+An organizer builds a tournament and generates the calendar. A captain manages their own squad. A referee adds goals, cards, and substitutions from a phone, and the public match page updates the score over WebSocket. After the final whistle the table is recalculated on the queue.
 
-![Головна](docs/screenshots/home.png)
+![Home](docs/screenshots/home.png)
 
-![Турнір](docs/screenshots/tournament.png)
+![Tournament](docs/screenshots/tournament.png)
 
-![Матч](docs/screenshots/match.png)
+![Match](docs/screenshots/match.png)
 
-Знімки екрана кладуться в `docs/screenshots/`.
+Put screenshots in `docs/screenshots/`.
 
-## Стек
+## Stack
 
-Проєкт зібрано на **Laravel 12** і PHP 8.3. Laravel 11 на момент створення блокувався Composer через незакриті security advisories (виправлення є лише в 12.x), тому каркас — Laravel 12 із тим самим набором пакетів: Inertia.js, Vue 3, Tailwind CSS, Laravel Breeze, Sanctum, Reverb, Echo, Pest і Sail (MySQL 8.4 + Redis).
+The app runs on **Laravel 12** and PHP 8.3. Laravel 11 was blocked by Composer at the time of creation because of unfixed security advisories (the patches exist only in 12.x), so the skeleton is Laravel 12 with the same packages: Inertia.js, Vue 3, Tailwind CSS, Laravel Breeze, Sanctum, Reverb, Echo, Pest, and Sail (MySQL 8.4 + Redis).
 
-Модель матчу називається `Game` і лежить у таблиці `matches`: у PHP 8 `match` — зарезервоване слово.
+The match model is named `Game` and stored in the `matches` table: `match` is a reserved word in PHP 8.
 
-## Запуск через Sail
+## Running with Sail
 
-Потрібні Docker і Composer.
+Docker and Composer are required.
 
 ```bash
 cp .env.example .env
@@ -35,33 +35,33 @@ php artisan key:generate
 ./vendor/bin/sail npm run dev
 ```
 
-Сайт: [http://localhost](http://localhost). Reverb слухає порт `8080`. Redis тримає кеш, сесії й черги. Подія `MatchFinished` ставить у чергу перерахунок таблиці, тож `queue:work` має працювати разом із сайтом.
+The site is at [http://localhost](http://localhost). Reverb listens on port `8080`. Redis holds the cache, sessions, and queues. `MatchFinished` queues a standings refresh, so `queue:work` needs to run alongside the site.
 
-Тести не потребують Docker: вони йдуть на SQLite в пам’яті.
+Tests do not need Docker. They run on SQLite in memory.
 
 ```bash
 php artisan test
 ```
 
-## Демо-вхід
+## Demo login
 
-Пароль для всіх акаунтів: `password`.
+The password for every account is `password`.
 
-| Роль | Email |
+| Role | Email |
 | --- | --- |
-| Адміністратор | `admin@matchday.test` |
-| Суддя | `referee@matchday.test` |
-| Другий суддя | `referee2@matchday.test` |
-| Капітан «Буревію» | `captain@matchday.test` |
-| Капітани інших клубів | `captain2@matchday.test` … `captain10@matchday.test` |
+| Administrator | `admin@matchday.test` |
+| Referee | `referee@matchday.test` |
+| Second referee | `referee2@matchday.test` |
+| Captain of Bureviy | `captain@matchday.test` |
+| Captains of the other clubs | `captain2@matchday.test` … `captain10@matchday.test` |
 
-Сідер створює лігу «Matchday Ліга» на сезон 2026/27: 10 команд по 15 гравців, два кола, зіграні тури 1–9 і один live-матч у 10-му турі.
+The seeder creates the Matchday League for the 2026/27 season: 10 teams of 15 players, a double round-robin, rounds 1–9 already played, and one live match in round 10.
 
 ## API
 
-Публічні `GET` не потребують токена. Префікс — `/api`. Турнір адресується slug-ом.
+Public `GET` endpoints do not need a token. The prefix is `/api`. A tournament is addressed by its slug.
 
-Отримати токен:
+Request a token:
 
 ```bash
 curl -X POST http://localhost/api/login \
@@ -71,21 +71,21 @@ curl -X POST http://localhost/api/login \
   -d 'device_name=laptop'
 ```
 
-Відповідь: `{ "token": "...", "user": { "id", "name", "email", "role" } }`. Невірні дані — `422`.
+The response is `{ "token": "...", "user": { "id", "name", "email", "role" } }`. Invalid credentials return `422`.
 
-Далі передавайте `Authorization: Bearer {token}`.
+Send `Authorization: Bearer {token}` after that.
 
-| Метод | Шлях | Доступ | Що повертає |
+| Method | Path | Access | Returns |
 | --- | --- | --- | --- |
-| `POST` | `/api/login` | гість | токен Sanctum і користувача |
-| `POST` | `/api/logout` | токен | відкликає поточний токен |
-| `GET` | `/api/user` | токен | поточного користувача |
-| `GET` | `/api/tournaments/{slug}/standings` | публічний | таблиці: І, В, Н, П, м’ячі, різниця, очки, форма |
-| `GET` | `/api/tournaments/{slug}/fixtures?round=` | публічний | матчі; `round` необов’язковий |
-| `GET` | `/api/tournaments/{slug}/top-scorers` | публічний | голи, пенальті, асисти |
-| `GET` | `/api/matches/{id}` | публічний | рахунок, хронологія, склади |
+| `POST` | `/api/login` | guest | a Sanctum token and the user |
+| `POST` | `/api/logout` | token | revokes the current token |
+| `GET` | `/api/user` | token | the current user |
+| `GET` | `/api/tournaments/{slug}/standings` | public | tables: played, won, drawn, lost, goals, difference, points, form |
+| `GET` | `/api/tournaments/{slug}/fixtures?round=` | public | matches; `round` is optional |
+| `GET` | `/api/tournaments/{slug}/top-scorers` | public | goals, penalties, assists |
+| `GET` | `/api/matches/{id}` | public | score, timeline, lineups |
 
-Приклад:
+Example:
 
 ```bash
 curl http://localhost/api/tournaments/matchday-liga/standings
